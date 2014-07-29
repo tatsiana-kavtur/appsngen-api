@@ -1,0 +1,90 @@
+FORMAT: 1A
+HOST: http://www.appsngen.com/api/v1
+
+# AppsNgen
+Public API of AppsNgen system.
+
+# Group Auth Service
+
+# /auth-service/token?scope={scope}
+
++ Parameters
+    + scope (string) ... list of resource identifiers.
+    
+### GET
+Client credentials passes in HTTP header using Basic authorization scheme. 
+Scope defined in “scope” parameter containing list of resource identifiers.
+
++ Request 
+
+    + Headers
+    
+            Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+            
++ Response 200 (application/json;charset=UTF-8)
+
+    + Headers
+    
+            Cache-Control: no-store
+            Pragma: no-cache
+
+    + Body
+
+            {
+                "access_token": "mF_9.B5f-4.1JqM",
+                "token_type": "Bearer",
+                "refresh_token": "tGzv3JOkF0XG5Qx2TlKWIA"  
+            }
+
+# /auth-service/revoke
+In order to make revocation request client should authorize using Basic authorization scheme.
+
+Parameters:
+
+* token. REQUIRED. The token that the client wants to get revoked.
+* token_type_hint. OPTIONAL. A hint about the type of the token submitted for revocation. 
+
+
+    
+### POST
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+    
+            Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+    
+    + Body
+    
+            token= LcO.tQBM.etdgt&token_type_hint=access_token
+            
++ Response 200
+
+# /auth-service/refresh
+The client requests the refresh of a particular token by making an HTTP POST request to the 
+token refresh endpoint URL. 
+
+### POST
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+    
+            Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+    
+    + Body
+    
+            token= tGzv3&token_type_hint=refresh_token
+            
++ Response 200(application/json;charset=UTF-8)
+
+    + Headers
+    
+            Cache-Control: no-store
+            Pragma: no-cache
+
+    + Body
+    
+            {
+                "access_token":"LcO.tQBM.etdgt",
+                "token_type":"Bearer",
+                "refresh_token":"ic3ViIjoidXJuOmRhd"  
+            }
